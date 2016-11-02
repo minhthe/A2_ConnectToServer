@@ -1,12 +1,14 @@
 /// <reference path="../typings/tsd.d.ts" />
 
 import {Component} from 'angular2/core';
+import {NavbarComponent} from './navbar.component';
 
 @Component({
     selector: 'my-app',
     template: `
-        <input id="search" type="text" class="form-control">
-    `
+         <navbar></navbar>
+             `,
+             directives : [NavbarComponent]
 })
 export class AppComponent {
     constructor(){
