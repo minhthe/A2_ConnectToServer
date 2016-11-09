@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/common'], function(exports_1, context_1) {
+System.register(['angular2/core', './basicValidators', 'angular2/common'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,12 +10,15 @@ System.register(['angular2/core', 'angular2/common'], function(exports_1, contex
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, common_1;
+    var core_1, basicValidators_1, common_1;
     var UserFormComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
+            },
+            function (basicValidators_1_1) {
+                basicValidators_1 = basicValidators_1_1;
             },
             function (common_1_1) {
                 common_1 = common_1_1;
@@ -24,8 +27,8 @@ System.register(['angular2/core', 'angular2/common'], function(exports_1, contex
             UserFormComponent = (function () {
                 function UserFormComponent(fb) {
                     this.form = fb.group({
-                        name: [],
-                        email: [],
+                        name: ['', common_1.Validators.required],
+                        email: ['', basicValidators_1.BasicValidators.email],
                         phone: [],
                         address: fb.group({
                             street: [],
