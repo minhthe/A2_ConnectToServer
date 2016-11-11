@@ -13,7 +13,7 @@ import {User} from './user';
 
 
 export class UserFormComponent implements CanDeactivate, OnInit {
-    
+    title : string;
     form: ControlGroup;
     
     user = new User();
@@ -33,7 +33,10 @@ export class UserFormComponent implements CanDeactivate, OnInit {
     }
     ngOnInit(){
         var id = this._routeParams.get("id");
-
+        this.title = id? "Edit User" : "New User";
+        if(!id){
+            return;
+        }
          this._userService.getUser(id)
 			.subscribe(
                 user => this.user = user.json(),

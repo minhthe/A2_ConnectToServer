@@ -54,6 +54,10 @@ System.register(['angular2/core', './basicValidators', 'angular2/common', 'angul
                 UserFormComponent.prototype.ngOnInit = function () {
                     var _this = this;
                     var id = this._routeParams.get("id");
+                    this.title = id ? "Edit User" : "New User";
+                    if (!id) {
+                        return;
+                    }
                     this._userService.getUser(id)
                         .subscribe(function (user) { return _this.user = user.json(); }, function (response) {
                         if (response.status == 404) {
