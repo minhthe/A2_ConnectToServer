@@ -33,9 +33,16 @@ System.register(['angular2/http', 'angular2/core', 'rxjs/add/operator/map'], fun
                 UsersService.prototype.addUser = function (user) {
                     return this._http.post(this._url, JSON.stringify(user)).map(function (user) { return user.json(); });
                 };
+                UsersService.prototype.updateUser = function (user) {
+                    return this._http.put(this.getUserUrl(user.id), JSON.stringify(user))
+                        .map(function (res) { return res.json(); });
+                };
                 UsersService.prototype.getUser = function (id) {
-                    // return this._http.get(this._url + "/" + id).map(user => user.json());
-                    return this._http.get(this._url + "/" + id);
+                    //    return this._http.get(this._url + "/" + id).map(user => user.json());
+                    return this._http.get(this.getUserUrl(id));
+                };
+                UsersService.prototype.getUserUrl = function (id) {
+                    return this._url + "/" + id;
                 };
                 UsersService = __decorate([
                     core_1.Injectable(), 
