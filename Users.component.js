@@ -32,7 +32,6 @@ System.register(['angular2/core', 'angular2/router', './users.service'], functio
                 UsersComponent.prototype.ngOnInit = function () {
                     var _this = this;
                     this._usersService.getUsers().subscribe(function (users) { return _this.users = users; });
-                    //  this._usersService.getUsers().subscribe(user => console.log(user));
                 };
                 UsersComponent = __decorate([
                     core_1.Component({

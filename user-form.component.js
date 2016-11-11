@@ -1,4 +1,4 @@
-System.register(['angular2/core', './basicValidators', 'angular2/common', 'angular2/router', './users.service'], function(exports_1, context_1) {
+System.register(['angular2/core', './basicValidators', 'angular2/common', 'angular2/router', './users.service', './user'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', './basicValidators', 'angular2/common', 'angul
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, basicValidators_1, common_1, router_1, users_service_1;
+    var core_1, basicValidators_1, common_1, router_1, users_service_1, user_1;
     var UserFormComponent;
     return {
         setters:[
@@ -28,12 +28,17 @@ System.register(['angular2/core', './basicValidators', 'angular2/common', 'angul
             },
             function (users_service_1_1) {
                 users_service_1 = users_service_1_1;
+            },
+            function (user_1_1) {
+                user_1 = user_1_1;
             }],
         execute: function() {
             UserFormComponent = (function () {
-                function UserFormComponent(fb, _router, _usersService) {
+                function UserFormComponent(fb, _router, _userService, _routeParams) {
                     this._router = _router;
-                    this._usersService = _usersService;
+                    this._userService = _userService;
+                    this._routeParams = _routeParams;
+                    this.user = new user_1.User();
                     this.form = fb.group({
                         name: ['', common_1.Validators.required],
                         email: ['', basicValidators_1.BasicValidators.email],
@@ -46,6 +51,16 @@ System.register(['angular2/core', './basicValidators', 'angular2/common', 'angul
                         })
                     });
                 }
+                UserFormComponent.prototype.ngOnInit = function () {
+                    var _this = this;
+                    var id = this._routeParams.get("id");
+                    this._userService.getUser(id)
+                        .subscribe(function (user) { return _this.user = user.json(); }, function (response) {
+                        if (response.status == 404) {
+                            _this._router.navigate(['NotFound']);
+                        }
+                    });
+                };
                 UserFormComponent.prototype.save = function () {
                     var _this = this;
                     this._usersService.addUser(this.form.value).subscribe(function (x) {
@@ -62,7 +77,7 @@ System.register(['angular2/core', './basicValidators', 'angular2/common', 'angul
                         templateUrl: 'app/user-form.component.html',
                         providers: [users_service_1.UsersService]
                     }), 
-                    __metadata('design:paramtypes', [common_1.FormBuilder, router_1.Router, users_service_1.UsersService])
+                    __metadata('design:paramtypes', [common_1.FormBuilder, router_1.Router, users_service_1.UsersService, router_1.RouteParams])
                 ], UserFormComponent);
                 return UserFormComponent;
             }());
