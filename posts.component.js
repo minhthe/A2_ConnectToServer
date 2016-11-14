@@ -1,4 +1,4 @@
-System.register(['angular2/core'], function(exports_1, context_1) {
+System.register(['angular2/core', './post.service'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,23 +10,31 @@ System.register(['angular2/core'], function(exports_1, context_1) {
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1;
+    var core_1, post_service_1;
     var PostsComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
+            },
+            function (post_service_1_1) {
+                post_service_1 = post_service_1_1;
             }],
         execute: function() {
             PostsComponent = (function () {
-                function PostsComponent() {
+                function PostsComponent(_postService) {
+                    this._postService = _postService;
                 }
+                PostsComponent.prototype.ngOnInit = function () {
+                    var _this = this;
+                    this._postService.getPosts().subscribe(function (post) { return _this.posts = post; });
+                };
                 PostsComponent = __decorate([
                     core_1.Component({
-                        // selector:'posts',
-                        template: "<h1>Posts</h1>"
+                        templateUrl: 'app/post.component.html',
+                        providers: [post_service_1.PostService]
                     }), 
-                    __metadata('design:paramtypes', [])
+                    __metadata('design:paramtypes', [post_service_1.PostService])
                 ], PostsComponent);
                 return PostsComponent;
             }());

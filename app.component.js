@@ -37,6 +37,12 @@ System.register(['angular2/core', 'angular2/router', './navbar.component', './Us
                 notfound_component_1 = notfound_component_1_1;
             }],
         execute: function() {
+            //when user click the post navigation,
+            //it will show the post page..
+            // post page "post.component.html" show all the list of post
+            // that retrive from the "post.service.ts"
+            //to do that you need create a router
+            //as well as the good view the the page post. should add boostrap on it.
             AppComponent = (function () {
                 function AppComponent() {
                 }
@@ -46,7 +52,7 @@ System.register(['angular2/core', 'angular2/router', './navbar.component', './Us
                         { path: '/posts', name: 'Posts', component: posts_component_1.PostsComponent },
                         { path: '/users/new', name: 'NewUser', component: user_form_component_1.UserFormComponent },
                         { path: '/users/:id', name: 'EditUser', component: user_form_component_1.UserFormComponent },
-                        { path: '/users/100', name: 'NotFound', component: notfound_component_1.NotFoundComponent },
+                        { path: '/not-found', name: 'NotFound', component: notfound_component_1.NotFoundComponent },
                         { path: '/*other', name: 'other', redirectTo: ['Users'] },
                     ]),
                     core_1.Component({
