@@ -33,11 +33,15 @@ System.register(['angular2/core', './post.service', './spinner.component'], func
                     var _this = this;
                     this._postService.getPosts().subscribe(function (post) { return _this.posts = post; }, null, function () { _this.isLoading = false; });
                 };
+                PostsComponent.prototype.select = function (post) {
+                    this.currentPost = post;
+                };
                 PostsComponent = __decorate([
                     core_1.Component({
                         templateUrl: 'app/post.component.html',
                         providers: [post_service_1.PostService],
-                        directives: [spinner_component_1.SpinnerComponent]
+                        directives: [spinner_component_1.SpinnerComponent],
+                        styles: ["\n         .posts li { cursor: default; }\n         .posts li:hover { background: #ecf0f1; } \n         .list-group-item.active, \n         .list-group-item.active:hover, \n         .list-group-item.active:focus { \n            background-color: #ecf0f1;\n            border-color: #ecf0f1; \n            color: #2c3e50; \n                }\n    "]
                     }), 
                     __metadata('design:paramtypes', [post_service_1.PostService])
                 ], PostsComponent);
