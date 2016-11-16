@@ -3,7 +3,7 @@
 </h1>
 <div class="row">
     <div class="col-md-6">
-        <select (change)="changeByUser(u.value)" #u class="form-control">
+        <select (change)="reloadPosts(u.value)" #u class="form-control">
             <option value="">Select a user...</option>
             <option *ngFor="#user of users" value="{{user.id}}">{{user.name}}</option>
         </select>

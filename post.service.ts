@@ -10,15 +10,11 @@ export class PostService{
         
     }
 
-    getPosts(){
-        return this._http.get(this._url).map(res=>res.json());
-    }
-
     getComments(id){
         var url = this._url + "/" + id + "/comments";
         return this._http.get(url).map(res=>res.json());
     }
-    getPostsByUserId(id){
+    getPosts(id){
         var url = this._url;
         if (id)
             var url = this._url + "?userId=" + id + "";

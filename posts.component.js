@@ -34,9 +34,16 @@ System.register(['angular2/core', './post.service', './users.service', './spinne
                     this.postsLoading = true;
                 }
                 PostsComponent.prototype.ngOnInit = function () {
+                    this.loadPosts();
+                    this.loadUsers();
+                };
+                PostsComponent.prototype.loadUsers = function () {
                     var _this = this;
-                    this._postService.getPosts().subscribe(function (post) { return _this.posts = post; }, null, function () { _this.postsLoading = false; });
                     this._userService.getUsers().subscribe(function (users) { return _this.users = users; });
+                };
+                PostsComponent.prototype.loadPosts = function (userId) {
+                    var _this = this;
+                    this._postService.getPosts(userId).subscribe(function (post) { return _this.posts = post; }, null, function () { _this.postsLoading = false; });
                 };
                 PostsComponent.prototype.select = function (post) {
                     var _this = this;
@@ -44,10 +51,10 @@ System.register(['angular2/core', './post.service', './users.service', './spinne
                     this.currentPost = post;
                     this._postService.getComments(post.id).subscribe(function (comments) { return _this.comments = comments; }, null, function () { _this.commentsLoading = false; });
                 };
-                PostsComponent.prototype.changeByUser = function (id) {
-                    var _this = this;
+                PostsComponent.prototype.reloadPosts = function (id) {
+                    this.postsLoading = true;
                     this.currentPost = null;
-                    this._postService.getPostsByUserId(id).subscribe(function (posts) { return _this.posts = posts; });
+                    this.loadPosts(id);
                 };
                 PostsComponent = __decorate([
                     core_1.Component({

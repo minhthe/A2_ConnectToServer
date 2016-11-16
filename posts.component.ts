@@ -31,8 +31,16 @@ export class PostsComponent implements OnInit {
     }
 
     ngOnInit() {
-        this._postService.getPosts().subscribe(post => this.posts = post, null, () => { this.postsLoading = false; });
+        this.loadPosts();
+        this.loadUsers();
+   }
+   
+   private loadUsers(){
         this._userService.getUsers().subscribe(users => this.users = users);
+   }
+
+   private loadPosts(userId?){
+        this._postService.getPosts(userId).subscribe(post => this.posts = post, null, () => { this.postsLoading = false; });
    }
 
     select(post) {
@@ -43,9 +51,9 @@ export class PostsComponent implements OnInit {
 
     }
 
-    changeByUser(id){
+    reloadPosts(id){
+        this.postsLoading = true;
         this.currentPost = null;
-        this._postService.getPostsByUserId(id).subscribe(posts => this.posts =posts);
-    }
-
+        this.loadPosts(id);
+}
 }
