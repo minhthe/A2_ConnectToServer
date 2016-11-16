@@ -21,19 +21,22 @@ import {SpinnerComponent} from './spinner.component';
 
 export class PostsComponent implements OnInit {
     posts;
-    isLoading = true;
+    postsLoading = true;
     currentPost;
     comments;
+    commentsLoading ;
     constructor(private _postService: PostService) {
     }
 
     ngOnInit() {
-        this._postService.getPosts().subscribe(post => this.posts = post, null, () => { this.isLoading = false; });
+        this._postService.getPosts().subscribe(post => this.posts = post, null, () => { this.postsLoading = false; });
     }
 
     select(post) {
+        this.commentsLoading = true;
+        
         this.currentPost = post;
-        this._postService.getComments(post.id).subscribe(comments => this.comments = comments);
+        this._postService.getComments(post.id).subscribe(comments => this.comments = comments, null, () => { this.commentsLoading = false; });
 
     }
 

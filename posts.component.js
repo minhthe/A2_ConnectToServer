@@ -27,16 +27,17 @@ System.register(['angular2/core', './post.service', './spinner.component'], func
             PostsComponent = (function () {
                 function PostsComponent(_postService) {
                     this._postService = _postService;
-                    this.isLoading = true;
+                    this.postsLoading = true;
                 }
                 PostsComponent.prototype.ngOnInit = function () {
                     var _this = this;
-                    this._postService.getPosts().subscribe(function (post) { return _this.posts = post; }, null, function () { _this.isLoading = false; });
+                    this._postService.getPosts().subscribe(function (post) { return _this.posts = post; }, null, function () { _this.postsLoading = false; });
                 };
                 PostsComponent.prototype.select = function (post) {
                     var _this = this;
+                    this.commentsLoading = true;
                     this.currentPost = post;
-                    this._postService.getComments(post.id).subscribe(function (comments) { return _this.comments = comments; });
+                    this._postService.getComments(post.id).subscribe(function (comments) { return _this.comments = comments; }, null, function () { _this.commentsLoading = false; });
                 };
                 PostsComponent = __decorate([
                     core_1.Component({
