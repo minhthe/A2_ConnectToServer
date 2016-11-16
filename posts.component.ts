@@ -23,7 +23,7 @@ export class PostsComponent implements OnInit {
     posts;
     isLoading = true;
     currentPost;
-
+    comments;
     constructor(private _postService: PostService) {
     }
 
@@ -33,5 +33,12 @@ export class PostsComponent implements OnInit {
 
     select(post) {
         this.currentPost = post;
+        this._postService.getComments(post.id).subscribe(comments => this.comments = comments);
+
     }
+
+    //requiremnet :
+    //when select one post. it will get current post -> show page post.component.html
+    // and in addition it will be also show the comment of one post
+    //with the struture image, id. content 
 }

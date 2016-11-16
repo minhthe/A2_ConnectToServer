@@ -34,7 +34,9 @@ System.register(['angular2/core', './post.service', './spinner.component'], func
                     this._postService.getPosts().subscribe(function (post) { return _this.posts = post; }, null, function () { _this.isLoading = false; });
                 };
                 PostsComponent.prototype.select = function (post) {
+                    var _this = this;
                     this.currentPost = post;
+                    this._postService.getComments(post.id).subscribe(function (comments) { return _this.comments = comments; });
                 };
                 PostsComponent = __decorate([
                     core_1.Component({
