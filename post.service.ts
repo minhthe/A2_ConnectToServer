@@ -18,5 +18,12 @@ export class PostService{
         var url = this._url + "/" + id + "/comments";
         return this._http.get(url).map(res=>res.json());
     }
+    getPostsByUserId(id){
+        var url = this._url;
+        if (id)
+            var url = this._url + "?userId=" + id + "";
+        return this._http.get(url).map(res=>res.json());
+        
+    }
 
 }

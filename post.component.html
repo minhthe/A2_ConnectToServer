@@ -3,6 +3,10 @@
 </h1>
 <div class="row">
     <div class="col-md-6">
+        <select (change)="changeByUser(u.value)" #u class="form-control">
+            <option value="">Select a user...</option>
+            <option *ngFor="#user of users" value="{{user.id}}">{{user.name}}</option>
+        </select>
         <spinner [visible]="postsLoading"></spinner>
         <ul class="list-group posts">
             <li *ngFor="#post of posts" class="list-group-item" [class.active]="currentPost == post" (click)="select(post)">{{post.title}}</li>

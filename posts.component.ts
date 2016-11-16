@@ -1,10 +1,11 @@
 import {Component, OnInit} from 'angular2/core';
 import {PostService} from './post.service';
+import {UsersService} from './users.service';
 import {SpinnerComponent} from './spinner.component';
 
 @Component({
     templateUrl: 'app/post.component.html',
-    providers: [PostService],
+    providers: [PostService, UsersService],
     directives: [SpinnerComponent],
     styles: [`
          .posts li { cursor: default; }
@@ -21,16 +22,18 @@ import {SpinnerComponent} from './spinner.component';
 
 export class PostsComponent implements OnInit {
     posts;
+    users;
     postsLoading = true;
     currentPost;
     comments;
     commentsLoading ;
-    constructor(private _postService: PostService) {
+    constructor(private _postService: PostService,private _userService: UsersService) {
     }
 
     ngOnInit() {
         this._postService.getPosts().subscribe(post => this.posts = post, null, () => { this.postsLoading = false; });
-    }
+        this._userService.getUsers().subscribe(users => this.users = users);
+   }
 
     select(post) {
         this.commentsLoading = true;
@@ -40,8 +43,9 @@ export class PostsComponent implements OnInit {
 
     }
 
-    //requiremnet :
-    //when select one post. it will get current post -> show page post.component.html
-    // and in addition it will be also show the comment of one post
-    //with the struture image, id. content 
+    changeByUser(id){
+        this.currentPost = null;
+        this._postService.getPostsByUserId(id).subscribe(posts => this.posts =posts);
+    }
+
 }
